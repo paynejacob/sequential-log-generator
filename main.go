@@ -48,7 +48,7 @@ func main() {
 		}
 
 		if stdout {
-			fmt.Printf("%s - %d", "stdout", i)
+			fmt.Printf("%s - %d\n", "stdout", i)
 		}
 	}
 }
