@@ -2,11 +2,11 @@
 
 if [ ! -e /usr/local/bin/sequential-log-generator ]; then
   echo "Installing binary"
-  wget -O /usr/local/bin/sequential-log-generator https://github.com/paynejacob/sequential-log-generator/raw/master/sequential-log-generator
-  chmod +x /usr/local/bin/sequential-log-generator
+  sudo wget -O /usr/local/bin/sequential-log-generator https://github.com/paynejacob/sequential-log-generator/raw/master/sequential-log-generator
+  sudo chmod +x /usr/local/bin/sequential-log-generator
 fi
 
-mkdir -p /examplelogs
+sudo mkdir -p /examplelogs
 
 echo "starting log generator"
-sequential-log-generator /examplelogs/a.log,/examplelogs/b.log,/examplelogs/c.log 1000
+sudo sequential-log-generator /examplelogs/a.log,/examplelogs/b.log,/examplelogs/c.log 1000
