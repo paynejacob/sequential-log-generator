@@ -12,6 +12,7 @@ const logTemplate = "{\"log\": \"%s - %d\", \"stream\": \"stderr\", \"time\": \"
 
 func main() {
 	var files []*os.File
+	var stdout bool
 
 	fileNames := os.Args[1]
 	preloadCount, err := strconv.ParseInt(os.Args[2], 10, 64)
@@ -22,6 +23,10 @@ func main() {
 
 	// create files
 	for _, fileName := range strings.Split(fileNames, ",") {
+		if fileName == "stdout" {
+			stdout = true
+		}
+
 		f, err := os.Create(fileName)
 		if err != nil {
 			panic(err)
@@ -31,15 +36,19 @@ func main() {
 	}
 
 	for i := int64(0); i < 9223372036854775807; i++ {
-
 		if i > preloadCount {
 			time.Sleep(1 * time.Second)
 		}
+
 		for ii := range files {
 			_, err := files[ii].Write([]byte(fmt.Sprintf(logTemplate, files[ii].Name(), i)))
 			if err != nil {
 				panic(err)
 			}
+		}
+
+		if stdout {
+			fmt.Printf("%s - %d", "stdout", i)
 		}
 	}
 }
